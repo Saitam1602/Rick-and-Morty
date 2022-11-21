@@ -5,7 +5,7 @@ import Link from "next/link";
 import { GETEPISODES } from "../../graphql/Queries";
 
 const EpisodesComponent = (props) => {
-  const max_page = 7;
+  const max_page = 51;
   const [page, setPage] = useState("");
   const [episodes, setEpisodes] = useState([]);
   const router = useRouter();
