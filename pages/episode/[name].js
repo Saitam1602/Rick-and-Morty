@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { useQuery } from "@apollo/client";
-import { GETCHARACTERFROMNAME } from "../../graphql/Queries";
+import { GETEPISODEFROMNAME } from "../../graphql/Queries";
 
-const Character = (props) => {
+const Location = (props) => {
   const [name, setName] = useState("");
-  const [characterData, setCharacterData] = useState([]);
+  const [episodeData, setEpisodeData] = useState([]);
   const router = useRouter();
 
   useEffect(() => {
@@ -13,14 +13,14 @@ const Character = (props) => {
     else setName(router.query.name.replace("%20", " "));
   }, [router.isReady]);
 
-  const { error, loading, data } = useQuery(GETCHARACTERFROMNAME, {
+  const { error, loading, data } = useQuery(GETEPISODEFROMNAME, {
     variables: { name: name },
   });
 
   useEffect(() => {
     if (!loading) {
-      setCharacterData(data.characters.results);
-      console.log(characterData);
+        console.log(data)
+      setEpisodeData(data.episodes.results);
     }
   }, [data]);
 
@@ -28,11 +28,11 @@ const Character = (props) => {
 
   return (
     <div>
-      {characterData.map((item, index) => {
+      {episodeData.map((item, index) => {
         return (
           <div key={index}>
             <h1>{item.name}</h1>
-            <img src={item.image}></img>
+            {/* Numero ep, numero personaggi, elenco personaggi, data di uscita */}
           </div>
         );
       })}
@@ -40,4 +40,4 @@ const Character = (props) => {
   );
 };
 
-export default Character;
+export default Location;

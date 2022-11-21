@@ -62,3 +62,32 @@ export const GETLOCATIONFROMNAME = gql`
     }
   }
 `;
+
+export const GETEPISODES = gql`
+  query getEpisodes($page: Int) {
+    episodes(page: $page) {
+      results {
+        name
+        episode
+        characters {
+          name
+        }
+      }
+    }
+  }
+`;
+
+export const GETEPISODEFROMNAME = gql`
+  query getLocationFromName($name: String) {
+    episodes(filter: { name: $name }) {
+      results {
+        name
+        episode
+        air_date
+        characters {
+          name
+        }
+      }
+    }
+  }
+`;

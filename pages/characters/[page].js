@@ -12,7 +12,8 @@ const CharactersComponent = (props) => {
 
   useEffect(() => {
     if (props.page) setPage(props.page);
-    else if (parseInt(router.query.page) > max_page) router.push("/characters/1");
+    else if (parseInt(router.query.page) > max_page)
+      router.push("/characters/1");
     else setPage(parseInt(router.query.page));
   }, [router.isReady]);
 
@@ -33,12 +34,9 @@ const CharactersComponent = (props) => {
       <h1>Characters</h1>
       <ul>
         {characters.map((item, index) => (
-          <li>
+          <li key={index}>
             <h3>{item.name}</h3>
-            <Link
-              key={index}
-              href={`/character/${item.name.replace(" ", "%20")}`}
-            >
+            <Link href={`/character/${item.name.replace(" ", "%20")}`}>
               <img src={item.image} width={300} height={300}></img>
             </Link>
             <p>Gender: {item.gender}</p>

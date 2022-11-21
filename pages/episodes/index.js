@@ -1,15 +1,7 @@
-import { useEffect } from "react";
-import { useQuery, gql } from "@apollo/client";
-import { GETCHARACTERS } from "../../graphql/queries";
+import EpisodesComponent from "./[page]";
 
-const Episode = () => {
-  const { error, loading, data } = useQuery(GETCHARACTERS);
-
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
-
-  return <h1>Episode</h1>;
+const Episodes = () => {
+  return <EpisodesComponent page={1} />;
 };
 
-export default Episode;
+export default Episodes;
