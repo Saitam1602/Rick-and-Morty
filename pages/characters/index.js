@@ -1,7 +1,15 @@
-import CharactersComponent from "./[page]"
+const Characters = () => {
+    return null;
+}
 
-const Characters = () =>{
-    return <CharactersComponent page={1}></CharactersComponent>
+export const getServerSideProps = () => {
+    return {
+        redirect: {
+          permanent: false,
+          destination: "/characters/1",
+        },
+        props:{},
+      };
 }
 
 export default Characters

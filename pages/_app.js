@@ -10,24 +10,24 @@ const client = new ApolloClient({
 });
 
 function MyApp({ Component, pageProps }) {
-  const [client, setClient] = useState(false);
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
-    setClient(true);
-  }, [])
+    setIsClient(true);
+  }, []);
 
-  if(!client) {
+  if (!isClient) {
     return null;
   }
 
   return (
-    <ApolloProvider client={client}>
-      <ConfigProvider>
+    <ConfigProvider>
+      <ApolloProvider client={client}>
         <Layout>
           <Component {...pageProps} />
         </Layout>
-      </ConfigProvider>
-    </ApolloProvider>
+      </ApolloProvider>
+    </ConfigProvider>
   );
 }
 

@@ -3,37 +3,36 @@ import { useRouter } from "next/router";
 import { useQuery } from "@apollo/client";
 import Link from "next/link";
 import { GETCHARACTERS } from "../../graphql/Queries";
+import { Row, Col } from "antd";
 
 const CharactersComponent = (props) => {
   const max_page = 42;
-  const [page, setPage] = useState("");
-  const [characters, setCharacters] = useState([]);
   const router = useRouter();
 
-  useEffect(() => {
-    if (props.page) setPage(props.page);
-    else if (parseInt(router.query.page) > max_page)
-      router.push("/characters/1");
-    else setPage(parseInt(router.query.page));
-  }, [router.isReady]);
+  const checkLimit = (page, max_page) => {
+    if (typeof page === undefined) return undefined
+    if (page > max_page) return 1;
+    else return page;
+  };
 
   const { error, loading, data } = useQuery(GETCHARACTERS, {
-    variables: { page: page },
+    variables: { page: checkLimit(parseInt(router.query.page), max_page) || 1 },
   });
-
-  useEffect(() => {
-    if (!loading) {
-      setCharacters(data.characters.results);
-    }
-  }, data);
 
   if (loading) return <div>loading</div>;
 
   return (
     <div>
+      <Row gutter={[24, 24]}>
+        <Col span={8}>a</Col>
+        <Col span={8}>a</Col>
+        <Col span={8}>a</Col>
+        <Col span={8}>a</Col>
+        <Col span={8}>a</Col>
+      </Row>
       <h1>Characters</h1>
       <ul>
-        {characters.map((item, index) => (
+        {data.characters.results.map((item, index) => (
           <li key={index}>
             <h3>{item.name}</h3>
             <Link href={`/character/${item.name.replace(" ", "%20")}`}>
