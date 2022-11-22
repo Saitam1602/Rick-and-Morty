@@ -1,7 +1,15 @@
-import EpisodesComponent from "./[page]";
-
 const Episodes = () => {
-  return <EpisodesComponent page={1} />;
-};
+  return null;
+}
 
-export default Episodes;
+export const getServerSideProps = () => {
+  return {
+      redirect: {
+        permanent: false,
+        destination: "/episodes/1",
+      },
+      props:{},
+    };
+}
+
+export default Episodes

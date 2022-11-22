@@ -1,7 +1,15 @@
-import Episode from "./[name]"
+const EpisodeComponent = () => {
+    return null;
+}
 
-const EpisodeComponent = () =>{
-    return <Episode name={"Pilot"} />
+export const getServerSideProps = () => {
+    return {
+        redirect: {
+          permanent: false,
+          destination: "/episode/Pilot",
+        },
+        props:{},
+      };
 }
 
 export default EpisodeComponent

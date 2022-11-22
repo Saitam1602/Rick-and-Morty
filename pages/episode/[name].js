@@ -3,36 +3,23 @@ import { useRouter } from "next/router";
 import { useQuery } from "@apollo/client";
 import { GETEPISODEFROMNAME } from "../../graphql/Queries";
 
-const Location = (props) => {
-  const [name, setName] = useState("");
-  const [episodeData, setEpisodeData] = useState([]);
+const Episode = (props) => {
   const router = useRouter();
 
-  useEffect(() => {
-    if (props.name) setName(props.name);
-    else setName(router.query.name.replace("%20", " "));
-  }, [router.isReady]);
-
   const { error, loading, data } = useQuery(GETEPISODEFROMNAME, {
-    variables: { name: name },
+    variables: { name: router.query.name },
   });
-
-  useEffect(() => {
-    if (!loading) {
-        console.log(data)
-      setEpisodeData(data.episodes.results);
-    }
-  }, [data]);
 
   if (loading) return <div>loading...</div>;
 
+  console.log(data)
+
   return (
     <div>
-      {episodeData.map((item, index) => {
+      {data.episodes.results.map((item, index) => {
         return (
           <div key={index}>
             <h1>{item.name}</h1>
-            {/* Numero ep, numero personaggi, elenco personaggi, data di uscita */}
           </div>
         );
       })}
@@ -40,4 +27,4 @@ const Location = (props) => {
   );
 };
 
-export default Location;
+export default Episode;

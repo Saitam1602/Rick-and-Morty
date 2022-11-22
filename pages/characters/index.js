@@ -1,4 +1,4 @@
-const Characters = () => {
+const CharactersComponent = () => {
     return null;
 }
 
@@ -12,4 +12,4 @@ export const getServerSideProps = () => {
       };
 }
 
-export default Characters
+export default CharactersComponent

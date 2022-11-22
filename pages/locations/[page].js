@@ -6,34 +6,25 @@ import { GETLOCATIONS } from "../../graphql/Queries";
 
 const LocationsComponent = (props) => {
   const max_page = 7;
-  const [page, setPage] = useState("");
-  const [locations, setLocations] = useState([]);
   const router = useRouter();
 
-  useEffect(() => {
-    if (props.page) setPage(props.page);
-    else if (parseInt(router.query.page) > max_page)
-      router.push("/locations/1");
-    else setPage(parseInt(router.query.page));
-  }, [router.isReady]);
+  const checkLimit = (page, max_page) => {
+    if (typeof page === undefined) return undefined;
+    if (page > max_page) return 1;
+    else return page;
+  };
 
   const { error, loading, data } = useQuery(GETLOCATIONS, {
-    variables: { page: page },
+    variables: { page: checkLimit(parseInt(router.query.page), max_page) || 1 },
   });
 
-  useEffect(() => {
-    if (!loading) {
-      setLocations(data.locations.results);
-    }
-  }, [data]);
-
-  if (loading) return <div>loading</div>;
+  if (loading) return <div>Loading...</div>;
 
   return (
     <div>
       <h1>Locations</h1>
       <ul>
-        {locations.map((item, index) => (
+        {data.locations.results.map((item, index) => (
           <li key={index}>
             <Link href={`/location/${item.name.replace(" ", "%20")}`}>
               <h3>{item.name}</h3>

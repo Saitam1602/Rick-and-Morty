@@ -3,32 +3,18 @@ import { useRouter } from "next/router";
 import { useQuery } from "@apollo/client";
 import { GETCHARACTERFROMNAME } from "../../graphql/Queries";
 
-const Character = (props) => {
-  const [name, setName] = useState("");
-  const [characterData, setCharacterData] = useState([]);
+const Character = () => {
   const router = useRouter();
 
-  useEffect(() => {
-    if (props.name) setName(props.name);
-    else setName(router.query.name.replace("%20", " "));
-  }, [router.isReady]);
-
   const { error, loading, data } = useQuery(GETCHARACTERFROMNAME, {
-    variables: { name: name },
+    variables: { name: router.query.name },
   });
 
-  useEffect(() => {
-    if (!loading) {
-      setCharacterData(data.characters.results);
-      console.log(characterData);
-    }
-  }, [data]);
-
   if (loading) return <div>loading...</div>;
-
+  
   return (
     <div>
-      {characterData.map((item, index) => {
+      {data.characters.results.map((item, index) => {
         return (
           <div key={index}>
             <h1>{item.name}</h1>
