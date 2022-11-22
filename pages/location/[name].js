@@ -12,6 +12,8 @@ const Location = () => {
 
   if (loading) return <div>loading...</div>;
 
+  console.log(data)
+
   return (
     <div>
       {data.locations.results[0].residents.map((item, index) => {
