@@ -18,7 +18,7 @@ const Episode = ({ id, name }) => {
     onCompleted: (res) => {
       if (
         !res.episode ||
-        slugify(res.location.name, { lower: true }) !== name
+        slugify(res.episode.name, { lower: true }) !== name
       ) {
         setError(true);
       }
