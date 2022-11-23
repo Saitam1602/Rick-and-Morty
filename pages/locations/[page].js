@@ -3,10 +3,18 @@ import { useRouter } from "next/router";
 import { useQuery } from "@apollo/client";
 import Link from "next/link";
 import { GETLOCATIONS } from "../../graphql/Queries";
+import { List, Pagination, Space, Typography, Card, Divider } from "antd";
 
 const LocationsComponent = (props) => {
   const max_page = 7;
   const router = useRouter();
+
+  const { Title } = Typography;
+  const { Paragraph } = Typography;
+
+  const handlePagination = (page) => {
+    router.push(`/locations/${page}`);
+  };
 
   const checkLimit = (page, max_page) => {
     if (typeof page === undefined) return undefined;
@@ -20,24 +28,32 @@ const LocationsComponent = (props) => {
 
   if (loading) return <div>Loading...</div>;
 
-  console.log(data)
+  console.log(data);
 
   return (
-    <div>
-      <h1>Locations</h1>
-      <ul>
-        {data.locations.results.map((item, index) => (
-          <li key={index}>
+    <Space direction="vertical" style={{ width: "100%", alignItems: "center" }}>
+      <List
+        dataSource={data.locations.results}
+        renderItem={(item) => (
+          <List.Item>
             <Link href={`/location/${item.name.replace(" ", "%20")}`}>
-              <h3>{item.name}</h3>
+              <Card style={{ width: 300 }}>
+                <Paragraph>Name: {item.name}</Paragraph>
+                <Divider></Divider>
+                <Paragraph>Type: {item.type}</Paragraph>
+              </Card>
             </Link>
-            <Link href={`/location/${item.name.replace(" ", "%20")}`}>
-              <h3>{item.type}</h3>
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </div>
+          </List.Item>
+        )}
+      ></List>
+      <Pagination
+        defaultCurrent={router.query.page}
+        total={max_page}
+        pageSize
+        size={30}
+        onChange={handlePagination}
+      ></Pagination>
+    </Space>
   );
 };
 

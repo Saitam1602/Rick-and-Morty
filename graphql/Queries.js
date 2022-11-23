@@ -31,7 +31,7 @@ export const GETCHARACTERFROMNAME = gql`
           name
         }
         episode {
-          id
+          name
         }
       }
     }
