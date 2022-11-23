@@ -1,12 +1,19 @@
-import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { useQuery } from "@apollo/client";
 import Link from "next/link";
 import { GETEPISODES } from "../../graphql/Queries";
+import { List, Pagination, Space, Typography, Card, Divider } from "antd";
 
 const EpisodesComponent = (props) => {
-  const max_page = 51;
+  const max_page = 3;
   const router = useRouter();
+
+  const { Title } = Typography;
+  const { Paragraph } = Typography;
+
+  const handlePagination = (page) => {
+    router.push(`/episodes/${page}`);
+  };
 
   const checkLimit = (page, max_page) => {
     if (typeof page === undefined) return undefined;
@@ -20,27 +27,36 @@ const EpisodesComponent = (props) => {
 
   if (loading) return <div>Loading...</div>;
 
-  console.log(data)
+  console.log(data);
 
   return (
-    <div>
-      <h1>Episodes</h1>
-      <ul>
-        {data.episodes.results.map((item, index) => (
-          <li key={index}>
+    <Space direction="vertical" style={{ width: "100%", alignItems: "center" }}>
+      <Title level={1}>Episodes</Title>
+      <List
+        dataSource={data.episodes.results}
+        renderItem={(item) => (
+          <List.Item>
             <Link href={`/episode/${item.name.replace(" ", "%20")}`}>
-              <h3>{item.name}</h3>
+              <Card style={{ width: 400 }}>
+                <Title level={3}>{item.name}</Title>
+                <Divider></Divider>
+                <Paragraph>Episode: {item.episode}</Paragraph>
+                <Paragraph>
+                  Number of characters: {item.characters.length}
+                </Paragraph>
+              </Card>
             </Link>
-            <Link href={`/episode/${item.name.replace(" ", "%20")}`}>
-              <h3>{item.episode}</h3>
-            </Link>
-            <Link href={`/episode/${item.name.replace(" ", "%20")}`}>
-              <h3>{item.characters.length}</h3>
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </div>
+          </List.Item>
+        )}
+      ></List>
+      <Pagination
+        defaultCurrent={router.query.page}
+        total={max_page}
+        pageSize
+        size={30}
+        onChange={handlePagination}
+      ></Pagination>
+    </Space>
   );
 };
 

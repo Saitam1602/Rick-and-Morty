@@ -57,7 +57,11 @@ export const GETLOCATIONFROMNAME = gql`
           name
           gender
           image
+          episode {
+            name
+          }
         }
+        
       }
     }
   }

@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { useQuery } from "@apollo/client";
 import Link from "next/link";
@@ -32,13 +31,14 @@ const LocationsComponent = (props) => {
 
   return (
     <Space direction="vertical" style={{ width: "100%", alignItems: "center" }}>
+      <Title level={1}>Locations</Title>
       <List
         dataSource={data.locations.results}
         renderItem={(item) => (
           <List.Item>
             <Link href={`/location/${item.name.replace(" ", "%20")}`}>
-              <Card style={{ width: 300 }}>
-                <Paragraph>Name: {item.name}</Paragraph>
+              <Card style={{ width: 400 }}>
+                <Title level={3}>{item.name}</Title>
                 <Divider></Divider>
                 <Paragraph>Type: {item.type}</Paragraph>
               </Card>
