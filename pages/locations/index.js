@@ -1,15 +1,15 @@
 const LocationsComponent = () => {
-    return null;
-}
+  return null;
+};
 
 export const getServerSideProps = () => {
-    return {
-        redirect: {
-          permanent: false,
-          destination: "/locations/1",
-        },
-        props:{},
-      };
-}
+  return {
+    redirect: {
+      permanent: false,
+      destination: "/locations/1",
+    },
+    props: {},
+  };
+};
 
-export default LocationsComponent
+export default LocationsComponent;

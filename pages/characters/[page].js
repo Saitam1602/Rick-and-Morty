@@ -2,23 +2,16 @@ import { useRouter } from "next/router";
 import { useQuery } from "@apollo/client";
 import Link from "next/link";
 import { GETCHARACTERS } from "../../graphql/Queries";
-import {
-  Row,
-  Col,
-  Card,
-  Input,
-  Space,
-  Typography,
-  Pagination,
-} from "antd";
+import { Row, Col, Card, Input, Space, Typography, Pagination } from "antd";
+import slugify from "slugify";
+
+const { Search } = Input;
+const { Title } = Typography;
+const { Paragraph } = Typography;
 
 const Characters = () => {
   const max_page = 42;
   const router = useRouter();
-
-  const { Search } = Input;
-  const { Title } = Typography;
-  const { Paragraph } = Typography;
 
   const handlePagination = (page) => {
     router.push(`/characters/${page}`);
@@ -52,7 +45,9 @@ const Characters = () => {
         {data.characters.results.map((item, index) => {
           return (
             <Link
-              href={`/character/${item.name.replace(" ", "%20")}`}
+              href={`/character/${slugify(`${item.name} ${item.id}`, {
+                lower: true,
+              })}`}
               key={index}
             >
               <Col>

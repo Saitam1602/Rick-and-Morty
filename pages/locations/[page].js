@@ -3,13 +3,14 @@ import { useQuery } from "@apollo/client";
 import Link from "next/link";
 import { GETLOCATIONS } from "../../graphql/Queries";
 import { List, Pagination, Space, Typography, Card, Divider } from "antd";
+import slugify from "slugify";
+
+const { Title } = Typography;
+const { Paragraph } = Typography;
 
 const LocationsComponent = (props) => {
   const max_page = 7;
   const router = useRouter();
-
-  const { Title } = Typography;
-  const { Paragraph } = Typography;
 
   const handlePagination = (page) => {
     router.push(`/locations/${page}`);
@@ -36,7 +37,11 @@ const LocationsComponent = (props) => {
         dataSource={data.locations.results}
         renderItem={(item) => (
           <List.Item>
-            <Link href={`/location/${item.name.replace(" ", "%20")}`}>
+            <Link
+              href={`/location/${slugify(`${item.name} ${item.id}`, {
+                lower: true,
+              })}`}
+            >
               <Card style={{ width: 400 }} hoverable>
                 <Title level={3}>{item.name}</Title>
                 <Divider></Divider>

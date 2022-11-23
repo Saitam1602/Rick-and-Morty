@@ -14,54 +14,13 @@ export const GETCHARACTERS = gql`
   }
 `;
 
-export const GETCHARACTERFROMNAME = gql`
-  query getCharacterFromName($name: String) {
-    characters(filter: { name: $name }) {
-      results {
-        id
-        name
-        image
-        gender
-        status
-        species
-        origin {
-          name
-        }
-        location {
-          name
-        }
-        episode {
-          name
-        }
-      }
-    }
-  }
-`;
-
 export const GETLOCATIONS = gql`
   query getLocations($page: Int) {
     locations(page: $page) {
       results {
+        id
         name
         type
-      }
-    }
-  }
-`;
-
-export const GETLOCATIONFROMNAME = gql`
-  query getLocationFromName($name: String) {
-    locations(filter: { name: $name }) {
-      results {
-        residents {
-          name
-          gender
-          image
-          episode {
-            name
-          }
-        }
-        
       }
     }
   }
@@ -71,6 +30,7 @@ export const GETEPISODES = gql`
   query getEpisodes($page: Int) {
     episodes(page: $page) {
       results {
+        id
         name
         episode
         characters {
@@ -81,17 +41,59 @@ export const GETEPISODES = gql`
   }
 `;
 
-export const GETEPISODEFROMNAME = gql`
-  query getLocationFromName($name: String) {
-    episodes(filter: { name: $name }) {
-      results {
+export const GETCHARACTER = gql`
+  query getCharacter($id: ID!) {
+    character(id: $id) {
+      id
+      name
+      image
+      gender
+      status
+      species
+      origin {
         name
-        episode
-        air_date
-        characters {
+      }
+      location {
+        name
+        id
+      }
+      episode {
+        name
+        id
+      }
+    }
+  }
+`;
+
+export const GETLOCATION = gql`
+  query getLocation($id: ID!) {
+    location(id: $id) {
+      id
+      name
+      residents {
+        id
+        name
+        gender
+        image
+        episode {
+          id
           name
-          image
         }
+      }
+    }
+  }
+`;
+
+export const GETEPISODE = gql`
+  query getEpisode($id: ID!) {
+    episode(id: $id) {
+      id
+      name
+      air_date
+      characters {
+        id
+        name
+        image
       }
     }
   }

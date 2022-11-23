@@ -3,13 +3,14 @@ import { useQuery } from "@apollo/client";
 import Link from "next/link";
 import { GETEPISODES } from "../../graphql/Queries";
 import { List, Pagination, Space, Typography, Card, Divider } from "antd";
+import slugify from "slugify";
+
+const { Title } = Typography;
+const { Paragraph } = Typography;
 
 const EpisodesComponent = (props) => {
   const max_page = 3;
   const router = useRouter();
-
-  const { Title } = Typography;
-  const { Paragraph } = Typography;
 
   const handlePagination = (page) => {
     router.push(`/episodes/${page}`);
@@ -36,7 +37,11 @@ const EpisodesComponent = (props) => {
         dataSource={data.episodes.results}
         renderItem={(item) => (
           <List.Item>
-            <Link href={`/episode/${item.name.replace(" ", "%20")}`}>
+            <Link
+              href={`/episode/${slugify(`${item.name} ${item.id}`, {
+                lower: true,
+              })}`}
+            >
               <Card style={{ width: 400 }} hoverable>
                 <Title level={3}>{item.name}</Title>
                 <Divider></Divider>
