@@ -30,7 +30,7 @@ const Location = () => {
 
   return (
     <Space direction="vertical" size={30}>
-      <Title>{router.query.name}</Title>
+      <Title level={1}>{router.query.name}</Title>
       {data.locations.results[0].residents.map((item, index) => {
         return (
             <Row gutter={200} justify="space-between" align="start" key={index}>

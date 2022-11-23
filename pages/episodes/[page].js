@@ -37,7 +37,7 @@ const EpisodesComponent = (props) => {
         renderItem={(item) => (
           <List.Item>
             <Link href={`/episode/${item.name.replace(" ", "%20")}`}>
-              <Card style={{ width: 400 }}>
+              <Card style={{ width: 400 }} hoverable>
                 <Title level={3}>{item.name}</Title>
                 <Divider></Divider>
                 <Paragraph>Episode: {item.episode}</Paragraph>

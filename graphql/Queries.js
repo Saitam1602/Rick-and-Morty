@@ -90,6 +90,7 @@ export const GETEPISODEFROMNAME = gql`
         air_date
         characters {
           name
+          image
         }
       }
     }
