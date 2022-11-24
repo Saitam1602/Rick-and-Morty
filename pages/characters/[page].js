@@ -91,6 +91,7 @@ const Characters = () => {
       >
         <Title>Characters</Title>
         <AutoComplete
+        placeholder="Search..."
           options={options}
           onChange={onChange}
           onSearch={onSearch}
