@@ -1,17 +1,54 @@
+import { useState } from "react";
 import { useRouter } from "next/router";
 import { useQuery } from "@apollo/client";
 import Link from "next/link";
 import { GETCHARACTERS } from "../../graphql/Queries";
-import { Row, Col, Card, Input, Space, Typography, Pagination } from "antd";
+import {
+  Row,
+  Col,
+  Card,
+  AutoComplete,
+  Space,
+  Typography,
+  Pagination,
+} from "antd";
 import slugify from "slugify";
 
-const { Search } = Input;
 const { Title } = Typography;
 const { Paragraph } = Typography;
 
 const Characters = () => {
   const max_page = 42;
   const router = useRouter();
+  const [value, setValue] = useState("");
+  const [options, setOptions] = useState([]);
+
+  const listAutocomplete = (str, maxLength) => {
+    let list = [];
+    for (let i = 0; i < maxLength; i++) {
+      let strResult = extractAutocomplete(str, i);
+      if (strResult.value !== null) {
+        list = [...list, strResult];
+      } else break;
+    }
+    return list;
+  };
+
+  const extractAutocomplete = (str, repeat) => {
+    const results = data.characters.results.filter((item) =>
+      item.name.toLowerCase().startsWith(str.toLowerCase())
+    );
+    if (results[repeat]) return { value: results[repeat].name };
+    else return { value: null };
+  };
+
+  const onSearch = (searchText) => {
+    setOptions(!searchText ? [] : listAutocomplete(searchText, 3));
+  };
+
+  const onChange = (text) => {
+    setValue(text);
+  };
 
   const handlePagination = (page) => {
     router.push(`/characters/${page}`);
@@ -31,6 +68,10 @@ const Characters = () => {
 
   console.log(data);
 
+  const filteredData = data.characters.results.filter((item) =>
+    item.name.toLowerCase().startsWith(value.toLowerCase())
+  );
+
   return (
     <Space direction="vertical" size={30}>
       <Space
@@ -40,9 +81,15 @@ const Characters = () => {
       >
         <Title>Characters</Title>
       </Space>
-      <Search placeholder="Search..."></Search>
+      <AutoComplete
+        options={options}
+        onChange={onChange}
+        onSearch={onSearch}
+        style={{ width: 450 }}
+      >
+      </AutoComplete>
       <Row gutter={[24, 24]}>
-        {data.characters.results.map((item, index) => {
+        {filteredData.map((item, index) => {
           return (
             <Link
               href={`/character/${slugify(`${item.name} ${item.id}`, {
@@ -86,5 +133,6 @@ const Characters = () => {
     </Space>
   );
 };
+
 
 export default Characters;
