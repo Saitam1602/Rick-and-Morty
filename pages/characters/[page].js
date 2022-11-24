@@ -13,6 +13,7 @@ import {
   Pagination,
 } from "antd";
 import slugify from "slugify";
+import { Loading } from "../loading";
 
 const { Title } = Typography;
 const { Paragraph } = Typography;
@@ -64,7 +65,7 @@ const Characters = () => {
     variables: { page: checkLimit(parseInt(router.query.page), max_page) || 1 },
   });
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <Loading></Loading>;
 
   console.log(data);
 
@@ -75,19 +76,18 @@ const Characters = () => {
   return (
     <Space direction="vertical" size={30}>
       <Space
-        direction="horizontal"
+        direction="vertical"
         size={30}
-        style={{ width: "100%", justifyContent: "center" }}
+        style={{ width: "100%", justifyContent: "center", alignItems: "center"}}
       >
         <Title>Characters</Title>
+        <AutoComplete
+          options={options}
+          onChange={onChange}
+          onSearch={onSearch}
+          style={{ width: 450 }}
+        ></AutoComplete>
       </Space>
-      <AutoComplete
-        options={options}
-        onChange={onChange}
-        onSearch={onSearch}
-        style={{ width: 450 }}
-      >
-      </AutoComplete>
       <Row gutter={[24, 24]}>
         {filteredData.map((item, index) => {
           return (
@@ -133,6 +133,5 @@ const Characters = () => {
     </Space>
   );
 };
-
 
 export default Characters;

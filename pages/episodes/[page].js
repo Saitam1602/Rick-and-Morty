@@ -4,6 +4,7 @@ import Link from "next/link";
 import { GETEPISODES } from "../../graphql/Queries";
 import { List, Pagination, Space, Typography, Card, Divider } from "antd";
 import slugify from "slugify";
+import { Loading } from "../loading";
 
 const { Title } = Typography;
 const { Paragraph } = Typography;
@@ -26,7 +27,7 @@ const EpisodesComponent = (props) => {
     variables: { page: checkLimit(parseInt(router.query.page), max_page) || 1 },
   });
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <Loading></Loading>;
 
   console.log(data);
 

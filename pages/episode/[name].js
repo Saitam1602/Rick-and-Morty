@@ -5,7 +5,8 @@ import { GETEPISODE } from "../../graphql/Queries";
 import { Space, Image, Typography, List, Card, Row, Col } from "antd";
 import Link from "next/link";
 import slugify from "slugify";
-import { ErrorPage } from "../404";
+import ErrorPage from "../404";
+import { Loading } from "../loading";
 
 const { Title } = Typography;
 const { Paragraph } = Typography;
@@ -17,18 +18,18 @@ const Episode = ({ id, name }) => {
   const { error, loading, data } = useQuery(GETEPISODE, {
     variables: { id: id },
     onCompleted: (res) => {
-      if (
-        !res.episode ||
-        slugify(res.episode.name, { lower: true }) !== name
-      ) {
+      if (!res.episode || slugify(res.episode.name, { lower: true }) !== name) {
         setError(true);
       }
     },
   });
 
-  if (error || errorUrl) return <ErrorPage></ErrorPage>;
+  if (error || errorUrl) {
+    router.push("/404");
+    return <ErrorPage></ErrorPage>;
+  }
 
-  if (loading) return <div>loading...</div>;
+  if (loading) return <Loading></Loading>;
 
   console.log(data);
 

@@ -14,7 +14,8 @@ import {
 } from "antd";
 import Link from "next/link";
 import slugify from "slugify";
-import { ErrorPage } from "../404";
+import ErrorPage from "../404";
+import { Loading } from "../loading";
 
 const { Title } = Typography;
 const { Paragraph } = Typography;
@@ -36,9 +37,12 @@ const Location = ({ id, name }) => {
     },
   });
 
-  if (error || errorUrl) return <ErrorPage></ErrorPage>;
+  if (error || errorUrl) {
+    router.push("/404");
+    return <ErrorPage></ErrorPage>;
+  }
 
-  if (loading) return <div>loading...</div>;
+  if (loading) return <Loading></Loading>;
 
   console.log(data);
 
