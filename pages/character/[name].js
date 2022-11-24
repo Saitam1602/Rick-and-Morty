@@ -42,7 +42,7 @@ const Character = ({ id, name }) => {
   return (
     <Space direction="vertical" size={30}>
       <Head>
-        <title>Character</title>
+        <title>{item.name}</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <Title>{item.name}</Title>

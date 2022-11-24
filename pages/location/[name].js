@@ -50,7 +50,7 @@ const Location = ({ id, name }) => {
   return (
     <Space direction="vertical" size={30}>
       <Head>
-        <title>Location</title>
+        <title>{data.location.name}</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <Title level={1}>{data.location.name}</Title>

@@ -37,7 +37,7 @@ const Episode = ({ id, name }) => {
   return (
     <Space direction="vertical" size={30}>
       <Head>
-        <title>Episode</title>
+        <title>{data.episode.name}</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <Title level={1}>{data.episode.name}</Title>

@@ -38,7 +38,7 @@ const Characters = () => {
 
   const extractAutocomplete = (str, repeat) => {
     const results = data.characters.results.filter((item) =>
-      item.name.toLowerCase().startsWith(str.toLowerCase())
+      item.name.toLowerCase().includes(str.toLowerCase())
     );
     if (results[repeat]) return { value: results[repeat].name };
     else return { value: null };
@@ -71,7 +71,7 @@ const Characters = () => {
   console.log(data);
 
   const filteredData = data.characters.results.filter((item) =>
-    item.name.toLowerCase().startsWith(value.toLowerCase())
+    item.name.toLowerCase().includes(value.toLowerCase())
   );
 
   return (
