@@ -4,6 +4,7 @@ import { useQuery } from "@apollo/client";
 import { GETCHARACTER } from "../../graphql/Queries";
 import { Space, Image, Row, Col, Typography, List, Collapse } from "antd";
 import Link from "next/link";
+import Head from "next/head";
 import slugify from "slugify";
 import ErrorPage from "../404";
 import { Loading } from "../loading";
@@ -40,8 +41,11 @@ const Character = ({ id, name }) => {
   const item = data.character;
   return (
     <Space direction="vertical" size={30}>
+      <Head>
+        <title>Character</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
       <Title>{item.name}</Title>
-
       <Row gutter={200} justify="space-between" align="start">
         <Col span={12}>
           <Image src={item.image} width={450} height={450}></Image>

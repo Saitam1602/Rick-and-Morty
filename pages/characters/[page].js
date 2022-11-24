@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import { useQuery } from "@apollo/client";
 import Link from "next/link";
+import Head from "next/head";
 import { GETCHARACTERS } from "../../graphql/Queries";
 import {
   Row,
@@ -75,10 +76,18 @@ const Characters = () => {
 
   return (
     <Space direction="vertical" size={30}>
+      <Head>
+        <title>Characters</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
       <Space
         direction="vertical"
         size={30}
-        style={{ width: "100%", justifyContent: "center", alignItems: "center"}}
+        style={{
+          width: "100%",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
       >
         <Title>Characters</Title>
         <AutoComplete

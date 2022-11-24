@@ -13,6 +13,7 @@ import {
   Collapse,
 } from "antd";
 import Link from "next/link";
+import Head from "next/head";
 import slugify from "slugify";
 import ErrorPage from "../404";
 import { Loading } from "../loading";
@@ -48,6 +49,10 @@ const Location = ({ id, name }) => {
 
   return (
     <Space direction="vertical" size={30}>
+      <Head>
+        <title>Location</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
       <Title level={1}>{data.location.name}</Title>
       {data.location.residents.map((item, index) => {
         return (

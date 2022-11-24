@@ -1,12 +1,13 @@
-// import styles from "../styles/Home.module.css";
-import { Space, Typography, Image } from "antd";
 import Link from "next/link";
-
-const { Title } = Typography;
+import Head from "next/head";
 
 export default function Home() {
   return (
     <>
+      <Head>
+        <title>Rick and Morty</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
       <div
         style={{
           display: "flex",
@@ -21,7 +22,7 @@ export default function Home() {
           zIndex: -1,
         }}
       ></div>
-      <Space
+      <div
         style={{
           justifyContent: "center",
           alignItems: "center",
@@ -30,15 +31,39 @@ export default function Home() {
         }}
       >
         <Link href="/characters">
-          <h1 style={{ color: "white", fontSize: "100px", textTransform: "uppercase" }}>Characters</h1>
+          <h1
+            style={{
+              color: "white",
+              fontSize: "60px",
+              textTransform: "uppercase",
+            }}
+          >
+            Characters
+          </h1>
         </Link>
         <Link href="/locations">
-          <h1 style={{ color: "#FFF", fontSize: "100px", textTransform: "uppercase" }}>Locations</h1>
+          <h1
+            style={{
+              color: "#FFF",
+              fontSize: "60px",
+              textTransform: "uppercase",
+            }}
+          >
+            Locations
+          </h1>
         </Link>
         <Link href="/episodes">
-          <h1 style={{ color: "white", fontSize: "100px", textTransform: "uppercase" }}>Episodes</h1>
+          <h1
+            style={{
+              color: "white",
+              fontSize: "60px",
+              textTransform: "uppercase",
+            }}
+          >
+            Episodes
+          </h1>
         </Link>
-      </Space>
+      </div>
     </>
   );
 }

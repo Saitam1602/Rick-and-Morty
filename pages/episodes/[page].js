@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import { useQuery } from "@apollo/client";
 import Link from "next/link";
+import Head from "next/head";
 import { GETEPISODES } from "../../graphql/Queries";
 import { List, Pagination, Space, Typography, Card, Divider } from "antd";
 import slugify from "slugify";
@@ -33,6 +34,10 @@ const EpisodesComponent = (props) => {
 
   return (
     <Space direction="vertical" style={{ width: "100%", alignItems: "center" }}>
+      <Head>
+        <title>Episodes</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
       <Title level={1}>Episodes</Title>
       <List
         dataSource={data.episodes.results}
